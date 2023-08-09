@@ -6,6 +6,7 @@ const {
   httpGetCharacter,
   httpUpdateCharacter,
   httpDeleteCharacter,
+  httpGetCharacterRelationships,
 } = require("./characters.controller");
 
 const charactersRouter = express.Router();
@@ -32,8 +33,6 @@ charactersRouter
     res.send(404);
   });
 
-charactersRouter.route("/:id/relationships").get(function (req, res) {
-  res.send(404);
-});
+charactersRouter.route("/:id/relationships").get(httpGetCharacterRelationships);
 
 module.exports = charactersRouter;
