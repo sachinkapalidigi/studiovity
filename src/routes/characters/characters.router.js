@@ -7,6 +7,7 @@ const {
   httpUpdateCharacter,
   httpDeleteCharacter,
   httpGetCharacterRelationships,
+  httpUploadCharacterPhotos,
 } = require("./characters.controller");
 
 const charactersRouter = express.Router();
@@ -14,7 +15,7 @@ const charactersRouter = express.Router();
 charactersRouter
   .route("/")
   .get(function (req, res) {
-    res.send(404);
+    res.status(404).send();
   })
   .post(requestValidator(createCharacterSchema), httpCreateCharacter);
 
@@ -27,11 +28,11 @@ charactersRouter
 charactersRouter
   .route("/:id/photos")
   .get(function (req, res) {
-    res.send(404);
+    // implement if needed
+    res.status(404).send();
   })
-  .post(function (req, res) {
-    res.send(404);
-  });
+  .post(httpUploadCharacterPhotos);
+// TODO: EDIT and DELETE photos
 
 charactersRouter.route("/:id/relationships").get(httpGetCharacterRelationships);
 
