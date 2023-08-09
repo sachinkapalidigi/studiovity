@@ -18,7 +18,7 @@ class CharacterRelations {
     // Fetch the direct relationships of the character
     const relations = await Relation.find({
       $or: [{ sourceCharacter: characterId }, { targetCharacter: characterId }],
-    }).populate("sourceCharacter targetCharacter"); // Assuming you have mongoose refs set up
+    }).populate("sourceCharacter targetCharacter");
 
     if (!this.returnNested) return relations;
     // Fetch relationships of related characters (recursively)

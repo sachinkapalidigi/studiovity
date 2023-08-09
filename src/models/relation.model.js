@@ -22,6 +22,12 @@ const relationSchema = new mongoose.Schema({
   },
 });
 
+relationSchema.pre(/^find/, function (next) {
+  // "this" is the current query
+  this.populate("sourceCharacter").populate("targetCharacter");
+  next();
+});
+
 const Relation = mongoose.model("Relation", relationSchema);
 
 module.exports = Relation;
