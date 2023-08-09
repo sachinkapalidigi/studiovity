@@ -1,24 +1,15 @@
-const express = require("express");
+const Joi = require("joi");
 
-const relationshipsRouter = express.Router();
+const getRelationshipSchema = Joi.object({
+  characterA: Joi.string().required(),
+  characterB: Joi.string().required(),
+});
 
-relationshipsRouter
-  .route("/")
-  .get(function (req, res) {
-    res.send(404);
-  })
-  .post(function (req, res) {
-    res.send(404);
-  });
+const createRelationshipSchema = Joi.object({
+  relationshipType: Joi.string().required(),
+  reverseRelationshipType: Joi.string().required(),
+  sourceCharacter: Joi.string().required(),
+  targetCharacter: Joi.string().required(),
+});
 
-relationshipsRouter
-  .route("/:id")
-  .get(function (req, res) {
-    res.send(404);
-  })
-  .put(function (req, res) {
-    res.send(404);
-  })
-  .delete(function (req, res) {
-    res.send(404);
-  });
+module.exports = { createRelationshipSchema, getRelationshipSchema };

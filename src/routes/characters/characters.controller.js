@@ -1,4 +1,5 @@
 const Character = require("../../models/character.model");
+const AppError = require("../../utils/appError");
 const catchAsync = require("../../utils/catchAsync");
 
 const httpCreateCharacter = catchAsync(async (req, res) => {
@@ -21,6 +22,9 @@ const httpCreateCharacter = catchAsync(async (req, res) => {
 const httpGetCharacter = catchAsync(async (req, res) => {
   const { id } = req.params;
   const character = await Character.findById(id);
+  if (!character) {
+    throw new AppError("Couldn't find character", 404);
+  }
   return res.status(200).json({
     status: "success",
     data: {

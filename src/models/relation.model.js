@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const Character = require("./character.model");
 
 const relationSchema = new mongoose.Schema({
   relationshipType: {
