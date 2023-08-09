@@ -1,0 +1,27 @@
+{
+  "name": "studiovity",
+  "version": "1.0.0",
+  "description": "CRUD API to manage characters, their relations, and properties in a screenplay",
+  "main": "src/server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/server.js"
+  },
+  "author": "sachin-vedaraj",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "express-mongo-sanitize": "^2.2.0",
+    "express-rate-limit": "^6.9.0",
+    "helmet": "^7.0.0",
+    "hpp": "^0.2.3",
+    "joi": "^17.9.2",
+    "jsonwebtoken": "^9.0.1",
+    "mongoose": "^7.4.2",
+    "morgan": "^1.10.0",
+    "xss-clean": "^0.1.4"
+  }
+}

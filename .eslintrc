@@ -1,0 +1,14 @@
+{
+    "root": true,
+    "parserOptions": {
+      "ecmaVersion": 2021
+    },
+    "extends": [
+      "eslint:recommended",
+      "plugin:prettier/recommended"
+    ],
+    "rules": {
+      "no-console": 1,
+      "prettier/prettier": 2
+    }
+  }

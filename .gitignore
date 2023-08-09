@@ -1,0 +1,41 @@
+# Node.js
+node_modules/
+
+# Logs
+logs
+*.log
+
+# Dependency directories
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Optional npm cache directory
+.npm
+
+# Build results
+build/
+dist/
+
+# dotenv environment variables file
+*.env
+
+# macOS
+.DS_Store
+
+# Production build artifacts
+*.js.map
+
+# Editor-specific files (Visual Studio Code, WebStorm, etc.)
+.vscode/
+.idea/
+*.iml
+
+# Development environment
+npm-debug.log
+yarn-error.log
+
+# Cache and logs for the node package manager
+.pnpm-debug.log
+.pnpm
