@@ -1,5 +1,3 @@
-const Joi = require("joi");
-
 const requestValidator = (schema, rvt = "body") => {
   return (req, res, next) => {
     const { error } = schema.validate(req[rvt]);

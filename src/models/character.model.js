@@ -22,35 +22,28 @@ const characterSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  relations: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Relation",
-    },
-  ],
-  properties: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Property",
-    },
-  ],
+  // relations: [
+  //   {
+  //     type: mongoose.Schema.Types.ObjectId,
+  //     ref: "Relation",
+  //   },
+  // ],
+  // properties: [
+  //   {
+  //     type: mongoose.Schema.Types.ObjectId,
+  //     ref: "Property",
+  //   },
+  // ],
 });
 
-const relationSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-  },
-  description: {
-    type: String,
-    required: true,
-  },
+characterSchema.pre("remove", async function (next) {
+  // 'this' refers to the character document being removed
+  await Relation.deleteMany({
+    $or: [{ sourceCharacter: this._id }, { targetCharacter: this._id }],
+  });
+  next();
 });
 
 const Character = mongoose.model("Character", characterSchema);
-const Relation = mongoose.model("Relation", relationSchema);
 
-module.exports = {
-  Character,
-  Relation,
-};
+module.exports = Character;
