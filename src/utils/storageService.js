@@ -1,3 +1,6 @@
+const S3Storage = require("../configs/s3Storage");
+const GCloudStorage = require("../configs/gCloudStorage");
+
 const storageProviders = {
   s3: S3Storage,
   gcloud: GCloudStorage,

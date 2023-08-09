@@ -1,4 +1,5 @@
 const AWS = require("aws-sdk");
+const StorageInterface = require("../utils/storageInterface");
 
 AWS.config.update({
   accessKeyId: process.env.AWS_ACCESS_KEY_ID,

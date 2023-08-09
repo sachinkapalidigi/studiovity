@@ -1,3 +1,5 @@
+const StorageInterface = require("../utils/storageInterface");
+
 class GCloudStorage extends StorageInterface {
   async upload(file) {
     // logic to upload to Google Cloud Storage
