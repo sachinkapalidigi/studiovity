@@ -1,0 +1,412 @@
+{
+	"info": {
+		"_postman_id": "43f5dc87-2b62-47d2-ad75-1def45c4636e",
+		"name": "STUDIOVITY APIS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "10771677"
+	},
+	"item": [
+		{
+			"name": "studiovity",
+			"item": [
+				{
+					"name": "characters",
+					"item": [
+						{
+							"name": "get-characters",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/characters?page=1&limit=10",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"characters"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "limit",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create-character",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Anushka\",\n    \"gender\": \"female\",\n    \"age\": \"50\",\n    \"occupation\": \"Princess\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/characters",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"characters"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get-character-by-id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/characters/:id",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"characters",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "64d474f5f986a5f4ad0810f4"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update-character",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Devasena\",\n    \"gender\": \"female\",\n    \"age\": \"50\",\n    \"occupation\": \"Princess\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/characters/:id",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"characters",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "64d474f5f986a5f4ad0810f4"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete-character",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/characters/:id",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"characters",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "64d474f5f986a5f4ad0810f4"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "upload-photos",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "files",
+											"type": "file",
+											"src": [
+												"/Users/sachin_vedaraj/Downloads/IMG_0198.jpg",
+												"/Users/sachin_vedaraj/Downloads/IMG_0200.jpg",
+												"/Users/sachin_vedaraj/Downloads/IMG_0201.jpg"
+											]
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}/characters/:id/photos",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"characters",
+										":id",
+										"photos"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "64d4749bf986a5f4ad0810f0"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "character-relationships",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/characters/:id/relationships?returnNested=false",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"characters",
+										":id",
+										"relationships"
+									],
+									"query": [
+										{
+											"key": "returnNested",
+											"value": "false"
+										}
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "64d4749bf986a5f4ad0810f0"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "generate-report",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/characters/:id/download?format=csv",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"characters",
+										":id",
+										"download"
+									],
+									"query": [
+										{
+											"key": "format",
+											"value": "csv"
+										}
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "64d4749bf986a5f4ad0810f0"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "relationships",
+					"item": [
+						{
+							"name": "get-relationship-by-charactersIds",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/relationships?characterA=&characterB=",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"relationships"
+									],
+									"query": [
+										{
+											"key": "characterA",
+											"value": ""
+										},
+										{
+											"key": "characterB",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create-relationship",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"relationshipType\": \"mother\",\n    \"reverseRelationshipType\": \"son\",\n    \"sourceCharacter\": \"64d474f5f986a5f4ad0810f4\",\n    \"targetCharacter\": \"64d4749bf986a5f4ad0810f0\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/relationships",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"relationships"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get-relationships-by-id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/relationships/:id",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"relationships",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "64d47bc9147d94893cd96e49"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update-relationships-by-id",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"relationshipType\": \"son\",\n    \"reverseRelationshipType\": \"father\",\n    \"sourceCharacter\": \"\",\n    \"targetCharacter\": \"\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/relationships/:id",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"relationships",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": null
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete-relationships-by-id",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/relationships/:id",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"relationships",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": null
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "health-check",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/health-check",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"health-check"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "[https://studiovity.notion.site/Backend-Engineer-Assignment-52ce701ca7e240eb841e1f2a84abbf8d]()"
+		}
+	]
+}

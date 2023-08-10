@@ -7,6 +7,11 @@ const createCharacterSchema = Joi.object({
   occupation: Joi.string().required(),
 });
 
+const downloadCharacterReportSchema = Joi.object({
+  format: Joi.allow(...["pdf", "csv", "xlsx"]).required(),
+});
+
 module.exports = {
   createCharacterSchema,
+  downloadCharacterReportSchema,
 };

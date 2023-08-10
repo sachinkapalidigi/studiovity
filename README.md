@@ -1,4 +1,5 @@
-# Character API Documentation
+# Character API Documentation 
+**Import POSTMAN COLLECTION JSON if needed**
 
 ## Overview
 This API provides CRUD functionalities for screenplay characters, their relationships, and associated photos.
@@ -195,6 +196,20 @@ This API provides CRUD functionalities for screenplay characters, their relation
   }
 }
 ```
+
+---
+
+### Get Character Report
+
+- **Endpoint**: `/v1/characters/:id/download`
+- **Method**: `GET`
+- **Description**: Retrieve details of a specific character by ID.
+- **Query Params**: `?format=pdf`
+- **Format options**: `pdf, csv, xlsx`
+  
+- **Response**:
+- **HTTP Status** : `200` OK
+- **Body** : Returns PDF, CSV or XLSX file as per format specified in request
 
 ---
 

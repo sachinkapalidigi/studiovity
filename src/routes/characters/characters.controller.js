@@ -2,7 +2,12 @@ const Character = require("../../models/character.model");
 const AppError = require("../../utils/appError");
 const catchAsync = require("../../utils/catchAsync");
 const CharacterRelations = require("../../utils/characterRelations");
-const { upload, uploadMultiple } = require("../../utils/multerSettings");
+const {
+  fillHTMLTemplate,
+  fillCSVTemplate,
+  fillXLSXTemplate,
+} = require("../../utils/fillCharacterReport");
+const generatePDF = require("../../utils/generatePDF");
 const StorageService = require("../../utils/storageService");
 
 const storageService = new StorageService("s3"); // use env to switch if needed
@@ -134,6 +139,55 @@ const httpUploadCharacterPhotos = catchAsync(async (req, res) => {
     .json({ status: "success", data: { photos: uploadedUrls } });
 });
 
+const httpDownloadCharacterReport = catchAsync(async (req, res) => {
+  const { format } = req.query;
+  const { id } = req.params;
+
+  const character = await Character.findById(id);
+  if (!character) {
+    throw new AppError("Couldn't find character", 404);
+  }
+  const characterRelations = new CharacterRelations(id, false);
+  const relationships = await characterRelations.fetchRelationships(id);
+
+  if (format === "pdf") {
+    const pdfHTML = fillTemplate(character, relationships);
+    const pdfBuffer = await generatePDF(pdfHTML);
+    res.setHeader("Content-Type", "application/pdf");
+    res.setHeader(
+      "Content-Disposition",
+      "attachment; filename=character-report.pdf"
+    );
+    return res.send(pdfBuffer);
+  } else if (format === "csv") {
+    const csvContent = fillCSVTemplate(character, relationships);
+    res.setHeader("Content-Type", "text/csv");
+    res.setHeader(
+      "Content-Disposition",
+      "attachment; filename=character-report.csv"
+    );
+    return res.send(csvContent);
+  } else if (format === "xlsx") {
+    const workbook = fillXLSXTemplate(character, relationships);
+
+    // Set the content type, headers and send the Excel file as a response
+    res.setHeader(
+      "Content-Type",
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    );
+    res.setHeader(
+      "Content-Disposition",
+      "attachment; filename=character-report.xlsx"
+    );
+
+    await workbook.xlsx.write(res);
+
+    return res.status(200).end();
+  }
+
+  return res.status(400).json({ status: "failure", message: "Invalid format" });
+});
+
 module.exports = {
   httpGetCharacters,
   httpCreateCharacter,
@@ -142,4 +196,5 @@ module.exports = {
   httpDeleteCharacter,
   httpGetCharacterRelationships,
   httpUploadCharacterPhotos,
+  httpDownloadCharacterReport,
 };

@@ -1,5 +1,8 @@
 const express = require("express");
-const { createCharacterSchema } = require("./characters.validation");
+const {
+  createCharacterSchema,
+  downloadCharacterReportSchema,
+} = require("./characters.validation");
 const requestValidator = require("../../middlewares/requestValidator");
 const {
   httpCreateCharacter,
@@ -9,6 +12,7 @@ const {
   httpGetCharacterRelationships,
   httpUploadCharacterPhotos,
   httpGetCharacters,
+  httpDownloadCharacterReport,
 } = require("./characters.controller");
 const { uploadMultiple } = require("../../utils/multerSettings");
 
@@ -33,6 +37,13 @@ charactersRouter
   })
   .post(uploadMultiple, httpUploadCharacterPhotos);
 // TODO: EDIT and DELETE photos
+
+charactersRouter
+  .route("/:id/download")
+  .get(
+    requestValidator(downloadCharacterReportSchema, "query"),
+    httpDownloadCharacterReport
+  );
 
 charactersRouter.route("/:id/relationships").get(httpGetCharacterRelationships);
 
