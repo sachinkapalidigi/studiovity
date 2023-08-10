@@ -5,15 +5,16 @@ class CharacterRelations {
     this.characterId = characterId;
     this.returnNested = returnNested;
     this.visitedCharacters = new Set();
+    this.visitedRelations = new Set();
   }
 
   async fetchRelationships(characterId) {
     // Check if the character was already visited
-    if (visitedCharacters.has(characterId.toString())) {
+    if (this.visitedCharacters.has(characterId.toString())) {
       return [];
     }
 
-    visitedCharacters.add(characterId.toString());
+    this.visitedCharacters.add(characterId.toString());
 
     // Fetch the direct relationships of the character
     const relations = await Relation.find({
@@ -27,7 +28,9 @@ class CharacterRelations {
         ? relation.targetCharacter._id
         : relation.sourceCharacter._id;
 
-      const nestedRelations = await fetchRelationships(nextCharacterId);
+      if (this.visitedCharacters.has(nextCharacterId)) continue;
+
+      const nestedRelations = await this.fetchRelationships(nextCharacterId);
 
       // Add nested relations to the current relation (or structure them as desired)
       relation._doc.nestedRelations = nestedRelations;

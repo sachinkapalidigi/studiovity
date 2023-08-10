@@ -8,15 +8,15 @@ const {
   httpDeleteCharacter,
   httpGetCharacterRelationships,
   httpUploadCharacterPhotos,
+  httpGetCharacters,
 } = require("./characters.controller");
+const { uploadMultiple } = require("../../utils/multerSettings");
 
 const charactersRouter = express.Router();
 
 charactersRouter
   .route("/")
-  .get(function (req, res) {
-    res.status(404).send();
-  })
+  .get(httpGetCharacters)
   .post(requestValidator(createCharacterSchema), httpCreateCharacter);
 
 charactersRouter
@@ -29,9 +29,9 @@ charactersRouter
   .route("/:id/photos")
   .get(function (req, res) {
     // implement if needed
-    res.status(404).send();
+    res.status(404).send({ message: "Route not found" });
   })
-  .post(httpUploadCharacterPhotos);
+  .post(uploadMultiple, httpUploadCharacterPhotos);
 // TODO: EDIT and DELETE photos
 
 charactersRouter.route("/:id/relationships").get(httpGetCharacterRelationships);

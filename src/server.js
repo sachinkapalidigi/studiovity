@@ -21,7 +21,7 @@ const { mongoConnect } = require("./configs/mongo");
 // Add path to certs for https
 const server = http.createServer(app);
 
-const { PORT = "8000" } = process.env;
+const { PORT = "8080" } = process.env;
 async function startServer() {
   await mongoConnect();
 
@@ -35,6 +35,7 @@ startServer();
 // Unhandled promise rejection
 process.on("unhandledRejection", (err) => {
   console.log(err.name, err.message); // send to chat maybe
+  console.log(err.stack);
   console.log("UNHANDLED REJECTION! Shutting down...!");
 
   // Graceful shutdown: give time for server to handle all pending requests before shutting down

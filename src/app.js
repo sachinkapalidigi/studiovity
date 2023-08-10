@@ -38,11 +38,8 @@ app.use(ip);
 app.use(limiter);
 
 // Body parser, reading data from body into req.body
-app.use(
-  express.json({
-    limit: "10kb", // max request body size
-  })
-);
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Data sanitization against NoSQL query injection
 app.use(ExpressMongoSanitize()); // remove query syntax from body

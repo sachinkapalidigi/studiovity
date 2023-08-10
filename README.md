@@ -133,6 +133,7 @@ This API provides CRUD functionalities for screenplay characters, their relation
 
 - **Request Query Parameters**: `?returnNested=true`
 
+- **NOTE**: This response contains duplicate relationships, flatten then for usage.
 - **Response**:
 - **HTTP Status** : `200` OK
 - **Body** :

@@ -1,4 +1,5 @@
 const User = require("../models/user.model");
+const AppError = require("../utils/appError");
 const { verifyToken } = require("../utils/authUtil");
 const catchAsync = require("../utils/catchAsync");
 

@@ -1,4 +1,6 @@
 const AWS = require("aws-sdk");
+const uuid = require("uuid");
+
 const StorageInterface = require("../utils/storageInterface");
 
 AWS.config.update({
@@ -13,12 +15,13 @@ class S3Storage extends StorageInterface {
   async upload(file) {
     // logic to upload to S3
     // NOTE: not good for large files
+    // TODO: clean file names
+    const fileName = `${uuid.v4().toString()}-${file.originalname}`;
     const result = await s3
       .upload({
         Bucket: process.env.AWS_BUCKET_NAME,
-        Key: file.filename,
-        Body: file.stream,
-        // ... other options
+        Key: fileName,
+        Body: file.buffer,
       })
       .promise();
 
