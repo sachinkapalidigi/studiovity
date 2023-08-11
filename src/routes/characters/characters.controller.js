@@ -151,7 +151,7 @@ const httpDownloadCharacterReport = catchAsync(async (req, res) => {
   const relationships = await characterRelations.fetchRelationships(id);
 
   if (format === "pdf") {
-    const pdfHTML = fillTemplate(character, relationships);
+    const pdfHTML = fillHTMLTemplate(character, relationships);
     const pdfBuffer = await generatePDF(pdfHTML);
     res.setHeader("Content-Type", "application/pdf");
     res.setHeader(
