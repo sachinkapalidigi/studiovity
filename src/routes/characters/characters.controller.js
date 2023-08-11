@@ -8,6 +8,7 @@ const {
   fillXLSXTemplate,
 } = require("../../utils/fillCharacterReport");
 const generatePDF = require("../../utils/generatePDF");
+const setReportHeaders = require("../../utils/setReportHeaders");
 const StorageService = require("../../utils/storageService");
 
 const storageService = new StorageService("s3"); // use env to switch if needed
@@ -150,39 +151,25 @@ const httpDownloadCharacterReport = catchAsync(async (req, res) => {
   const characterRelations = new CharacterRelations(id, false);
   const relationships = await characterRelations.fetchRelationships(id);
 
-  if (format === "pdf") {
-    const pdfHTML = fillHTMLTemplate(character, relationships);
-    const pdfBuffer = await generatePDF(pdfHTML);
-    res.setHeader("Content-Type", "application/pdf");
-    res.setHeader(
-      "Content-Disposition",
-      "attachment; filename=character-report.pdf"
-    );
-    return res.send(pdfBuffer);
-  } else if (format === "csv") {
-    const csvContent = fillCSVTemplate(character, relationships);
-    res.setHeader("Content-Type", "text/csv");
-    res.setHeader(
-      "Content-Disposition",
-      "attachment; filename=character-report.csv"
-    );
-    return res.send(csvContent);
-  } else if (format === "xlsx") {
-    const workbook = fillXLSXTemplate(character, relationships);
+  setReportHeaders(format, res);
 
-    // Set the content type, headers and send the Excel file as a response
-    res.setHeader(
-      "Content-Type",
-      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-    );
-    res.setHeader(
-      "Content-Disposition",
-      "attachment; filename=character-report.xlsx"
-    );
+  switch (format) {
+    case "pdf":
+      const pdfHTML = fillHTMLTemplate(character, relationships);
+      const pdfBuffer = await generatePDF(pdfHTML);
+      return res.send(pdfBuffer);
 
-    await workbook.xlsx.write(res);
+    case "csv":
+      const csvContent = fillCSVTemplate(character, relationships);
+      return res.send(csvContent);
 
-    return res.status(200).end();
+    case "xlsx":
+      const workbook = fillXLSXTemplate(character, relationships);
+      await workbook.xlsx.write(res);
+      return res.status(200).end();
+
+    default:
+      break;
   }
 
   return res.status(400).json({ status: "failure", message: "Invalid format" });
